@@ -1,0 +1,2113 @@
+{
+  "city": "Brussels",
+  "country": "Belgium",
+  "network": "Brussels Metro",
+  "source_notes": {
+    "station_order_and_current_line_structure": "Compiled from STIB/MIVB line pages and the Wikipedia list of Brussels Metro stations.",
+    "coordinates": "Mostly from the Wikipedia station list; several suspicious duplicates were corrected with station-specific public pages / Wikimedia Commons / latitude tools.",
+    "segment_travel_times": "Estimated by distributing total line runtime from Moovit proportionally across adjacent-station geographic distances. These are suitable for coursework/graph search, but should be treated as estimates rather than official timetable values.",
+    "transfer_penalty_min_default": 4
+  },
+  "lines": {
+    "1": {
+      "name": "Line 1",
+      "color_hex": "#B95192",
+      "stations": [
+        "Gare de l'Ouest",
+        "Beekkant",
+        "Étangs Noirs",
+        "Comte de Flandre",
+        "Sainte-Catherine",
+        "De Brouckère",
+        "Gare Centrale",
+        "Parc",
+        "Arts-Loi",
+        "Maelbeek",
+        "Schuman",
+        "Mérode",
+        "Montgomery",
+        "Joséphine-Charlotte",
+        "Gribaumont",
+        "Tomberg",
+        "Roodebeek",
+        "Vandervelde",
+        "Alma",
+        "Crainhem",
+        "Stockel"
+      ],
+      "total_runtime_min": 26
+    },
+    "2": {
+      "name": "Line 2",
+      "color_hex": "#F78E1E",
+      "stations": [
+        "Simonis",
+        "Osseghem",
+        "Beekkant",
+        "Gare de l'Ouest",
+        "Delacroix",
+        "Clemenceau",
+        "Gare du Midi",
+        "Porte de Hal",
+        "Hôtel des Monnaies",
+        "Louise",
+        "Porte de Namur",
+        "Trône",
+        "Arts-Loi",
+        "Madou",
+        "Botanique",
+        "Rogier",
+        "Yser",
+        "Ribaucourt",
+        "Elisabeth"
+      ],
+      "total_runtime_min": 23
+    },
+    "5": {
+      "name": "Line 5",
+      "color_hex": "#FCB814",
+      "stations": [
+        "Erasme",
+        "Eddy Merckx",
+        "CERIA",
+        "La Roue",
+        "Bizet",
+        "Veeweyde",
+        "Saint-Guidon",
+        "Aumale",
+        "Jacques Brel",
+        "Gare de l'Ouest",
+        "Beekkant",
+        "Étangs Noirs",
+        "Comte de Flandre",
+        "Sainte-Catherine",
+        "De Brouckère",
+        "Gare Centrale",
+        "Parc",
+        "Arts-Loi",
+        "Maelbeek",
+        "Schuman",
+        "Mérode",
+        "Thieffry",
+        "Pétillon",
+        "Hankar",
+        "Delta",
+        "Beaulieu",
+        "Demey",
+        "Herrmann-Debroux"
+      ],
+      "total_runtime_min": 36
+    },
+    "6": {
+      "name": "Line 6",
+      "color_hex": "#0080B3",
+      "stations": [
+        "Roi Baudouin",
+        "Heysel",
+        "Houba-Brugmann",
+        "Stuyvenbergh",
+        "Bockstael",
+        "Pannenhuis",
+        "Belgica",
+        "Simonis",
+        "Osseghem",
+        "Beekkant",
+        "Gare de l'Ouest",
+        "Delacroix",
+        "Clemenceau",
+        "Gare du Midi",
+        "Porte de Hal",
+        "Hôtel des Monnaies",
+        "Louise",
+        "Porte de Namur",
+        "Trône",
+        "Arts-Loi",
+        "Madou",
+        "Botanique",
+        "Rogier",
+        "Yser",
+        "Ribaucourt",
+        "Elisabeth"
+      ],
+      "total_runtime_min": 34
+    }
+  },
+  "stations": [
+    {
+      "id": "alma",
+      "name": "Alma",
+      "lat": 50.86611,
+      "lon": 4.4525,
+      "lines": [
+        "1"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "arts_loi",
+      "name": "Arts-Loi",
+      "lat": 50.84556,
+      "lon": 4.36861,
+      "lines": [
+        "1",
+        "2",
+        "5",
+        "6"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "aumale",
+      "name": "Aumale",
+      "lat": 50.83944,
+      "lon": 4.31222,
+      "lines": [
+        "5"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "beaulieu",
+      "name": "Beaulieu",
+      "lat": 50.815,
+      "lon": 4.40944,
+      "lines": [
+        "5"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "beekkant",
+      "name": "Beekkant",
+      "lat": 50.85361,
+      "lon": 4.32278,
+      "lines": [
+        "1",
+        "2",
+        "5",
+        "6"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "belgica",
+      "name": "Belgica",
+      "lat": 50.86778,
+      "lon": 4.33611,
+      "lines": [
+        "6"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "bizet",
+      "name": "Bizet",
+      "lat": 50.825,
+      "lon": 4.29778,
+      "lines": [
+        "5"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "bockstael",
+      "name": "Bockstael",
+      "lat": 50.8775,
+      "lon": 4.3475,
+      "lines": [
+        "6"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "botanique",
+      "name": "Botanique",
+      "lat": 50.8543,
+      "lon": 4.36616,
+      "lines": [
+        "2",
+        "6"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "ceria",
+      "name": "CERIA",
+      "lat": 50.81611,
+      "lon": 4.29,
+      "lines": [
+        "5"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "clemenceau",
+      "name": "Clemenceau",
+      "lat": 50.84111,
+      "lon": 4.33056,
+      "lines": [
+        "2",
+        "6"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "comte_de_flandre",
+      "name": "Comte de Flandre",
+      "lat": 50.85472,
+      "lon": 4.34,
+      "lines": [
+        "1",
+        "5"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "crainhem",
+      "name": "Crainhem",
+      "lat": 50.84889,
+      "lon": 4.45833,
+      "lines": [
+        "1"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "de_brouckere",
+      "name": "De Brouckère",
+      "lat": 50.85083,
+      "lon": 4.35222,
+      "lines": [
+        "1",
+        "5"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "delacroix",
+      "name": "Delacroix",
+      "lat": 50.845,
+      "lon": 4.32444,
+      "lines": [
+        "2",
+        "6"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "delta",
+      "name": "Delta",
+      "lat": 50.81889,
+      "lon": 4.40417,
+      "lines": [
+        "5"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "demey",
+      "name": "Demey",
+      "lat": 50.81333,
+      "lon": 4.42083,
+      "lines": [
+        "5"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "eddy_merckx",
+      "name": "Eddy Merckx",
+      "lat": 50.81667,
+      "lon": 4.27528,
+      "lines": [
+        "5"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "elisabeth",
+      "name": "Elisabeth",
+      "lat": 50.86306,
+      "lon": 4.33056,
+      "lines": [
+        "2",
+        "6"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "erasme",
+      "name": "Erasme",
+      "lat": 50.815,
+      "lon": 4.26667,
+      "lines": [
+        "5"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "gare_centrale",
+      "name": "Gare Centrale",
+      "lat": 50.84556,
+      "lon": 4.35694,
+      "lines": [
+        "1",
+        "5"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "gare_de_louest",
+      "name": "Gare de l'Ouest",
+      "lat": 50.84889,
+      "lon": 4.32083,
+      "lines": [
+        "1",
+        "2",
+        "5",
+        "6"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "gare_du_midi",
+      "name": "Gare du Midi",
+      "lat": 50.835161,
+      "lon": 4.335222,
+      "lines": [
+        "2",
+        "6"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "gribaumont",
+      "name": "Gribaumont",
+      "lat": 50.8425,
+      "lon": 4.4175,
+      "lines": [
+        "1"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "hankar",
+      "name": "Hankar",
+      "lat": 50.82151,
+      "lon": 4.40558,
+      "lines": [
+        "5"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "herrmann_debroux",
+      "name": "Herrmann-Debroux",
+      "lat": 50.8125,
+      "lon": 4.42806,
+      "lines": [
+        "5"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "heysel",
+      "name": "Heysel",
+      "lat": 50.89639,
+      "lon": 4.33667,
+      "lines": [
+        "6"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "houba_brugmann",
+      "name": "Houba-Brugmann",
+      "lat": 50.89028,
+      "lon": 4.33694,
+      "lines": [
+        "6"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "hotel_des_monnaies",
+      "name": "Hôtel des Monnaies",
+      "lat": 50.83333,
+      "lon": 4.34944,
+      "lines": [
+        "2",
+        "6"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "jacques_brel",
+      "name": "Jacques Brel",
+      "lat": 50.845,
+      "lon": 4.31861,
+      "lines": [
+        "5"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "josephine_charlotte",
+      "name": "Joséphine-Charlotte",
+      "lat": 50.84,
+      "lon": 4.41278,
+      "lines": [
+        "1"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "la_roue",
+      "name": "La Roue",
+      "lat": 50.82083,
+      "lon": 4.29361,
+      "lines": [
+        "5"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "louise",
+      "name": "Louise",
+      "lat": 50.83833,
+      "lon": 4.36222,
+      "lines": [
+        "2",
+        "6"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "madou",
+      "name": "Madou",
+      "lat": 50.85,
+      "lon": 4.36889,
+      "lines": [
+        "2",
+        "6"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "maelbeek",
+      "name": "Maelbeek",
+      "lat": 50.84389,
+      "lon": 4.37639,
+      "lines": [
+        "1",
+        "5"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "montgomery",
+      "name": "Montgomery",
+      "lat": 50.83778,
+      "lon": 4.40694,
+      "lines": [
+        "1"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "merode",
+      "name": "Mérode",
+      "lat": 50.83944,
+      "lon": 4.39778,
+      "lines": [
+        "1",
+        "5"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "osseghem",
+      "name": "Osseghem",
+      "lat": 50.85694,
+      "lon": 4.325,
+      "lines": [
+        "2",
+        "6"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "pannenhuis",
+      "name": "Pannenhuis",
+      "lat": 50.87278,
+      "lon": 4.34194,
+      "lines": [
+        "6"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "parc",
+      "name": "Parc",
+      "lat": 50.84667,
+      "lon": 4.3625,
+      "lines": [
+        "1",
+        "5"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "porte_de_hal",
+      "name": "Porte de Hal",
+      "lat": 50.83361,
+      "lon": 4.34333,
+      "lines": [
+        "2",
+        "6"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "porte_de_namur",
+      "name": "Porte de Namur",
+      "lat": 50.83833,
+      "lon": 4.36167,
+      "lines": [
+        "2",
+        "6"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "petillon",
+      "name": "Pétillon",
+      "lat": 50.82722,
+      "lon": 4.40361,
+      "lines": [
+        "5"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "ribaucourt",
+      "name": "Ribaucourt",
+      "lat": 50.86083,
+      "lon": 4.33826,
+      "lines": [
+        "2",
+        "6"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "rogier",
+      "name": "Rogier",
+      "lat": 50.85361,
+      "lon": 4.362,
+      "lines": [
+        "2",
+        "6"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "roi_baudouin",
+      "name": "Roi Baudouin",
+      "lat": 50.89639,
+      "lon": 4.32778,
+      "lines": [
+        "6"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "roodebeek",
+      "name": "Roodebeek",
+      "lat": 50.8475,
+      "lon": 4.43583,
+      "lines": [
+        "1"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "saint_guidon",
+      "name": "Saint-Guidon",
+      "lat": 50.835,
+      "lon": 4.30528,
+      "lines": [
+        "5"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "sainte_catherine",
+      "name": "Sainte-Catherine",
+      "lat": 50.85222,
+      "lon": 4.34778,
+      "lines": [
+        "1",
+        "5"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "schuman",
+      "name": "Schuman",
+      "lat": 50.84278,
+      "lon": 4.38167,
+      "lines": [
+        "1",
+        "5"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "simonis",
+      "name": "Simonis",
+      "lat": 50.86306,
+      "lon": 4.33056,
+      "lines": [
+        "2",
+        "6"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "stockel",
+      "name": "Stockel",
+      "lat": 50.84139,
+      "lon": 4.46444,
+      "lines": [
+        "1"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "stuyvenbergh",
+      "name": "Stuyvenbergh",
+      "lat": 50.88611,
+      "lon": 4.34167,
+      "lines": [
+        "6"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "thieffry",
+      "name": "Thieffry",
+      "lat": 50.83278,
+      "lon": 4.40167,
+      "lines": [
+        "5"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "tomberg",
+      "name": "Tomberg",
+      "lat": 50.84361,
+      "lon": 4.42472,
+      "lines": [
+        "1"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "trone",
+      "name": "Trône",
+      "lat": 50.84111,
+      "lon": 4.36639,
+      "lines": [
+        "2",
+        "6"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "vandervelde",
+      "name": "Vandervelde",
+      "lat": 50.8475,
+      "lon": 4.44833,
+      "lines": [
+        "1"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "veeweyde",
+      "name": "Veeweyde",
+      "lat": 50.82833,
+      "lon": 4.3,
+      "lines": [
+        "5"
+      ],
+      "is_interchange": false
+    },
+    {
+      "id": "yser",
+      "name": "Yser",
+      "lat": 50.85722,
+      "lon": 4.35167,
+      "lines": [
+        "2",
+        "6"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    },
+    {
+      "id": "etangs_noirs",
+      "name": "Étangs Noirs",
+      "lat": 50.85694,
+      "lon": 4.3325,
+      "lines": [
+        "1",
+        "5"
+      ],
+      "is_interchange": true,
+      "transfer_penalty_min": 4
+    }
+  ],
+  "interchanges": [
+    {
+      "station": "Arts-Loi",
+      "lines": [
+        "1",
+        "2",
+        "5",
+        "6"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Beekkant",
+      "lines": [
+        "1",
+        "2",
+        "5",
+        "6"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Botanique",
+      "lines": [
+        "2",
+        "6"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Clemenceau",
+      "lines": [
+        "2",
+        "6"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Comte de Flandre",
+      "lines": [
+        "1",
+        "5"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "De Brouckère",
+      "lines": [
+        "1",
+        "5"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Delacroix",
+      "lines": [
+        "2",
+        "6"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Elisabeth",
+      "lines": [
+        "2",
+        "6"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Gare Centrale",
+      "lines": [
+        "1",
+        "5"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Gare de l'Ouest",
+      "lines": [
+        "1",
+        "2",
+        "5",
+        "6"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Gare du Midi",
+      "lines": [
+        "2",
+        "6"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Hôtel des Monnaies",
+      "lines": [
+        "2",
+        "6"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Louise",
+      "lines": [
+        "2",
+        "6"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Madou",
+      "lines": [
+        "2",
+        "6"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Maelbeek",
+      "lines": [
+        "1",
+        "5"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Mérode",
+      "lines": [
+        "1",
+        "5"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Osseghem",
+      "lines": [
+        "2",
+        "6"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Parc",
+      "lines": [
+        "1",
+        "5"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Porte de Hal",
+      "lines": [
+        "2",
+        "6"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Porte de Namur",
+      "lines": [
+        "2",
+        "6"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Ribaucourt",
+      "lines": [
+        "2",
+        "6"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Rogier",
+      "lines": [
+        "2",
+        "6"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Sainte-Catherine",
+      "lines": [
+        "1",
+        "5"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Schuman",
+      "lines": [
+        "1",
+        "5"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Simonis",
+      "lines": [
+        "2",
+        "6"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Trône",
+      "lines": [
+        "2",
+        "6"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Yser",
+      "lines": [
+        "2",
+        "6"
+      ],
+      "transfer_penalty_min": 4
+    },
+    {
+      "station": "Étangs Noirs",
+      "lines": [
+        "1",
+        "5"
+      ],
+      "transfer_penalty_min": 4
+    }
+  ],
+  "edges": [
+    {
+      "from": "Gare de l'Ouest",
+      "to": "Beekkant",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Beekkant",
+      "to": "Gare de l'Ouest",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Beekkant",
+      "to": "Étangs Noirs",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Étangs Noirs",
+      "to": "Beekkant",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Étangs Noirs",
+      "to": "Comte de Flandre",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Comte de Flandre",
+      "to": "Étangs Noirs",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Comte de Flandre",
+      "to": "Sainte-Catherine",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Sainte-Catherine",
+      "to": "Comte de Flandre",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Sainte-Catherine",
+      "to": "De Brouckère",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "De Brouckère",
+      "to": "Sainte-Catherine",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "De Brouckère",
+      "to": "Gare Centrale",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Gare Centrale",
+      "to": "De Brouckère",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Gare Centrale",
+      "to": "Parc",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Parc",
+      "to": "Gare Centrale",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Parc",
+      "to": "Arts-Loi",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Arts-Loi",
+      "to": "Parc",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Arts-Loi",
+      "to": "Maelbeek",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Maelbeek",
+      "to": "Arts-Loi",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Maelbeek",
+      "to": "Schuman",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Schuman",
+      "to": "Maelbeek",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Schuman",
+      "to": "Mérode",
+      "line": "1",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Mérode",
+      "to": "Schuman",
+      "line": "1",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Mérode",
+      "to": "Montgomery",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Montgomery",
+      "to": "Mérode",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Montgomery",
+      "to": "Joséphine-Charlotte",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Joséphine-Charlotte",
+      "to": "Montgomery",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Joséphine-Charlotte",
+      "to": "Gribaumont",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Gribaumont",
+      "to": "Joséphine-Charlotte",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Gribaumont",
+      "to": "Tomberg",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Tomberg",
+      "to": "Gribaumont",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Tomberg",
+      "to": "Roodebeek",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Roodebeek",
+      "to": "Tomberg",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Roodebeek",
+      "to": "Vandervelde",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Vandervelde",
+      "to": "Roodebeek",
+      "line": "1",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Vandervelde",
+      "to": "Alma",
+      "line": "1",
+      "travel_time_min": 3
+    },
+    {
+      "from": "Alma",
+      "to": "Vandervelde",
+      "line": "1",
+      "travel_time_min": 3
+    },
+    {
+      "from": "Alma",
+      "to": "Crainhem",
+      "line": "1",
+      "travel_time_min": 3
+    },
+    {
+      "from": "Crainhem",
+      "to": "Alma",
+      "line": "1",
+      "travel_time_min": 3
+    },
+    {
+      "from": "Crainhem",
+      "to": "Stockel",
+      "line": "1",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Stockel",
+      "to": "Crainhem",
+      "line": "1",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Simonis",
+      "to": "Osseghem",
+      "line": "2",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Osseghem",
+      "to": "Simonis",
+      "line": "2",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Osseghem",
+      "to": "Beekkant",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Beekkant",
+      "to": "Osseghem",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Beekkant",
+      "to": "Gare de l'Ouest",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Gare de l'Ouest",
+      "to": "Beekkant",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Gare de l'Ouest",
+      "to": "Delacroix",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Delacroix",
+      "to": "Gare de l'Ouest",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Delacroix",
+      "to": "Clemenceau",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Clemenceau",
+      "to": "Delacroix",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Clemenceau",
+      "to": "Gare du Midi",
+      "line": "2",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Gare du Midi",
+      "to": "Clemenceau",
+      "line": "2",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Gare du Midi",
+      "to": "Porte de Hal",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Porte de Hal",
+      "to": "Gare du Midi",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Porte de Hal",
+      "to": "Hôtel des Monnaies",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Hôtel des Monnaies",
+      "to": "Porte de Hal",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Hôtel des Monnaies",
+      "to": "Louise",
+      "line": "2",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Louise",
+      "to": "Hôtel des Monnaies",
+      "line": "2",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Louise",
+      "to": "Porte de Namur",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Porte de Namur",
+      "to": "Louise",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Porte de Namur",
+      "to": "Trône",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Trône",
+      "to": "Porte de Namur",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Trône",
+      "to": "Arts-Loi",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Arts-Loi",
+      "to": "Trône",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Arts-Loi",
+      "to": "Madou",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Madou",
+      "to": "Arts-Loi",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Madou",
+      "to": "Botanique",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Botanique",
+      "to": "Madou",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Botanique",
+      "to": "Rogier",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Rogier",
+      "to": "Botanique",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Rogier",
+      "to": "Yser",
+      "line": "2",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Yser",
+      "to": "Rogier",
+      "line": "2",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Yser",
+      "to": "Ribaucourt",
+      "line": "2",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Ribaucourt",
+      "to": "Yser",
+      "line": "2",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Ribaucourt",
+      "to": "Elisabeth",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Elisabeth",
+      "to": "Ribaucourt",
+      "line": "2",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Erasme",
+      "to": "Eddy Merckx",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Eddy Merckx",
+      "to": "Erasme",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Eddy Merckx",
+      "to": "CERIA",
+      "line": "5",
+      "travel_time_min": 2
+    },
+    {
+      "from": "CERIA",
+      "to": "Eddy Merckx",
+      "line": "5",
+      "travel_time_min": 2
+    },
+    {
+      "from": "CERIA",
+      "to": "La Roue",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "La Roue",
+      "to": "CERIA",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "La Roue",
+      "to": "Bizet",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Bizet",
+      "to": "La Roue",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Bizet",
+      "to": "Veeweyde",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Veeweyde",
+      "to": "Bizet",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Veeweyde",
+      "to": "Saint-Guidon",
+      "line": "5",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Saint-Guidon",
+      "to": "Veeweyde",
+      "line": "5",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Saint-Guidon",
+      "to": "Aumale",
+      "line": "5",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Aumale",
+      "to": "Saint-Guidon",
+      "line": "5",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Aumale",
+      "to": "Jacques Brel",
+      "line": "5",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Jacques Brel",
+      "to": "Aumale",
+      "line": "5",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Jacques Brel",
+      "to": "Gare de l'Ouest",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Gare de l'Ouest",
+      "to": "Jacques Brel",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Gare de l'Ouest",
+      "to": "Beekkant",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Beekkant",
+      "to": "Gare de l'Ouest",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Beekkant",
+      "to": "Étangs Noirs",
+      "line": "5",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Étangs Noirs",
+      "to": "Beekkant",
+      "line": "5",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Étangs Noirs",
+      "to": "Comte de Flandre",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Comte de Flandre",
+      "to": "Étangs Noirs",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Comte de Flandre",
+      "to": "Sainte-Catherine",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Sainte-Catherine",
+      "to": "Comte de Flandre",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Sainte-Catherine",
+      "to": "De Brouckère",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "De Brouckère",
+      "to": "Sainte-Catherine",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "De Brouckère",
+      "to": "Gare Centrale",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Gare Centrale",
+      "to": "De Brouckère",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Gare Centrale",
+      "to": "Parc",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Parc",
+      "to": "Gare Centrale",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Parc",
+      "to": "Arts-Loi",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Arts-Loi",
+      "to": "Parc",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Arts-Loi",
+      "to": "Maelbeek",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Maelbeek",
+      "to": "Arts-Loi",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Maelbeek",
+      "to": "Schuman",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Schuman",
+      "to": "Maelbeek",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Schuman",
+      "to": "Mérode",
+      "line": "5",
+      "travel_time_min": 3
+    },
+    {
+      "from": "Mérode",
+      "to": "Schuman",
+      "line": "5",
+      "travel_time_min": 3
+    },
+    {
+      "from": "Mérode",
+      "to": "Thieffry",
+      "line": "5",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Thieffry",
+      "to": "Mérode",
+      "line": "5",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Thieffry",
+      "to": "Pétillon",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Pétillon",
+      "to": "Thieffry",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Pétillon",
+      "to": "Hankar",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Hankar",
+      "to": "Pétillon",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Hankar",
+      "to": "Delta",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Delta",
+      "to": "Hankar",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Delta",
+      "to": "Beaulieu",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Beaulieu",
+      "to": "Delta",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Beaulieu",
+      "to": "Demey",
+      "line": "5",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Demey",
+      "to": "Beaulieu",
+      "line": "5",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Demey",
+      "to": "Herrmann-Debroux",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Herrmann-Debroux",
+      "to": "Demey",
+      "line": "5",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Roi Baudouin",
+      "to": "Heysel",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Heysel",
+      "to": "Roi Baudouin",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Heysel",
+      "to": "Houba-Brugmann",
+      "line": "6",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Houba-Brugmann",
+      "to": "Heysel",
+      "line": "6",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Houba-Brugmann",
+      "to": "Stuyvenbergh",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Stuyvenbergh",
+      "to": "Houba-Brugmann",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Stuyvenbergh",
+      "to": "Bockstael",
+      "line": "6",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Bockstael",
+      "to": "Stuyvenbergh",
+      "line": "6",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Bockstael",
+      "to": "Pannenhuis",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Pannenhuis",
+      "to": "Bockstael",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Pannenhuis",
+      "to": "Belgica",
+      "line": "6",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Belgica",
+      "to": "Pannenhuis",
+      "line": "6",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Belgica",
+      "to": "Simonis",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Simonis",
+      "to": "Belgica",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Simonis",
+      "to": "Osseghem",
+      "line": "6",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Osseghem",
+      "to": "Simonis",
+      "line": "6",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Osseghem",
+      "to": "Beekkant",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Beekkant",
+      "to": "Osseghem",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Beekkant",
+      "to": "Gare de l'Ouest",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Gare de l'Ouest",
+      "to": "Beekkant",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Gare de l'Ouest",
+      "to": "Delacroix",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Delacroix",
+      "to": "Gare de l'Ouest",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Delacroix",
+      "to": "Clemenceau",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Clemenceau",
+      "to": "Delacroix",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Clemenceau",
+      "to": "Gare du Midi",
+      "line": "6",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Gare du Midi",
+      "to": "Clemenceau",
+      "line": "6",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Gare du Midi",
+      "to": "Porte de Hal",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Porte de Hal",
+      "to": "Gare du Midi",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Porte de Hal",
+      "to": "Hôtel des Monnaies",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Hôtel des Monnaies",
+      "to": "Porte de Hal",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Hôtel des Monnaies",
+      "to": "Louise",
+      "line": "6",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Louise",
+      "to": "Hôtel des Monnaies",
+      "line": "6",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Louise",
+      "to": "Porte de Namur",
+      "line": "6",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Porte de Namur",
+      "to": "Louise",
+      "line": "6",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Porte de Namur",
+      "to": "Trône",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Trône",
+      "to": "Porte de Namur",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Trône",
+      "to": "Arts-Loi",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Arts-Loi",
+      "to": "Trône",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Arts-Loi",
+      "to": "Madou",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Madou",
+      "to": "Arts-Loi",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Madou",
+      "to": "Botanique",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Botanique",
+      "to": "Madou",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Botanique",
+      "to": "Rogier",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Rogier",
+      "to": "Botanique",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Rogier",
+      "to": "Yser",
+      "line": "6",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Yser",
+      "to": "Rogier",
+      "line": "6",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Yser",
+      "to": "Ribaucourt",
+      "line": "6",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Ribaucourt",
+      "to": "Yser",
+      "line": "6",
+      "travel_time_min": 2
+    },
+    {
+      "from": "Ribaucourt",
+      "to": "Elisabeth",
+      "line": "6",
+      "travel_time_min": 1
+    },
+    {
+      "from": "Elisabeth",
+      "to": "Ribaucourt",
+      "line": "6",
+      "travel_time_min": 1
+    }
+  ]
+}
