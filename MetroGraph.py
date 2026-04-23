@@ -30,7 +30,7 @@ class MetroGraph:
     def __init__(self, transfer_penalty: float = 4.0):
         self.stations: Dict[str, Station] = {}
         self.adj_list: Dict[str, List[Edge]] = {}
-        self.transfer_penalty = transfer_penalty # Thời gian phạt khi đổi tuyến
+        self.transfer_penalty = transfer_penalty # time later when change line.
         self._kd_tree: Optional[KDTree] = None
         self._node_ids: List[str] = []
 
