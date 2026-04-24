@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A* Pathfinding Frontend</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div>
+        <h1>Project A*</h1>
+        <p class="subtitle">Web frontend for A*, BFS, and UCS pathfinding.</p>
+      </div>
+
+      <section class="panel">
+        <h2>Controls</h2>
+        <label>
+          Sample map
+          <div class="inline-row">
+            <select id="mapSelect"></select>
+            <button id="loadMapBtn">Load</button>
+          </div>
+        </label>
+
+        <label>
+          Algorithm
+          <select id="algorithmSelect">
+            <option value="A*">A*</option>
+            <option value="BFS">BFS</option>
+            <option value="UCS">UCS</option>
+          </select>
+        </label>
+
+        <div class="button-grid">
+          <button id="runBtn" class="primary">Run</button>
+          <button id="resetBtn">Reset colors</button>
+          <button id="clearWallsBtn">Clear walls</button>
+          <button id="randomBtn">Random walls</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Edit map</h2>
+        <div class="tool-group" id="toolGroup">
+          <button data-tool="wall" class="tool active">Wall</button>
+          <button data-tool="erase" class="tool">Erase</button>
+          <button data-tool="start" class="tool">Start</button>
+          <button data-tool="goal" class="tool">Goal</button>
+        </div>
+        <p class="hint">Click cells to edit the grid. Dragging works for wall and erase.</p>
+      </section>
+
+      <section class="panel stats-panel">
+        <h2>Statistics</h2>
+        <div class="stats">
+          <div><span>Found</span><strong id="statFound">-</strong></div>
+          <div><span>Path cost</span><strong id="statCost">-</strong></div>
+          <div><span>Expanded</span><strong id="statExpanded">-</strong></div>
+          <div><span>Runtime</span><strong id="statRuntime">-</strong></div>
+        </div>
+        <p id="statusText" class="status">Ready.</p>
+      </section>
+
+      <section class="panel">
+        <h2>Legend</h2>
+        <div class="legend">
+          <div><span class="swatch start"></span>Start</div>
+          <div><span class="swatch goal"></span>Goal</div>
+          <div><span class="swatch wall"></span>Obstacle</div>
+          <div><span class="swatch visited"></span>Visited</div>
+          <div><span class="swatch path"></span>Final path</div>
+        </div>
+      </section>
+    </aside>
+
+    <main class="main-panel">
+      <div class="canvas-toolbar">
+        <div>
+          <h2>Grid</h2>
+          <p>Green = start, red = goal, yellow = final path.</p>
+        </div>
+      </div>
+      <div class="grid-wrap">
+        <div id="gridBoard" class="grid-board"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
