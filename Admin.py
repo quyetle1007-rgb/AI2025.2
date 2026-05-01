@@ -183,7 +183,7 @@ class ScenarioManager:
  
  
     def _copy_metrograph(self, base_mg: MetroGraph) -> MetroGraph:
-        """Tạo copy MetroGraph """
+        """Tạo copy MetroGraph"""
         mg = MetroGraph(transfer_penalty=base_mg.transfer_penalty)
  
         for sid, s in base_mg.stations.items():
@@ -225,7 +225,7 @@ class ScenarioManager:
                             if line == "*" or edge.line_name == line:
                                 edge.travel_time += extra
  
-    def get_modified_graph(self, base_mg: MetroGraph) -> MetroGraph
+    def get_modified_graph(self, base_mg: MetroGraph) -> MetroGraph:
         modified = self._copy_metrograph(base_mg)
         for sc in self.scenarios.values():
             if sc.active:
