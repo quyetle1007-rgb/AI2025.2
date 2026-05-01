@@ -1,7 +1,3 @@
-"""
-demo.py — Tìm đường đi Brussels Metro + quản lý Scenario
-Chạy: python demo.py
-"""
 
 from MetroGraph import MetroGraph
 from Admin import ScenarioManager
@@ -10,8 +6,6 @@ mg = MetroGraph(transfer_penalty=4.0)
 mg.load_from_json("brussels_metro_dataset (1).json")
 manager = ScenarioManager()
 
-
-# ── Tiện ích ──────────────────────────────────────────────
 
 def print_stations():
     print("\nDanh sách ga (ID để nhập):")
@@ -64,7 +58,7 @@ def ask(prompt):
     return input(f"  {prompt}: ").strip()
 
 
-# ── Menu Scenario ─────────────────────────────────────────
+#Menu
 
 def menu_scenario():
     while True:
