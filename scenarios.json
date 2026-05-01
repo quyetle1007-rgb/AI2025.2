@@ -1,0 +1,12 @@
+{
+  "Delay parc arts_loi": {
+    "name": "Delay parc arts_loi",
+    "description": "delay tại ga parc và arts_loi",
+    "active": true,
+    "closed_stations": [],
+    "closed_edges": [],
+    "delays": {
+      "[\"arts_loi\", \"parc\", \"*\"]": 5.0
+    }
+  }
+}
