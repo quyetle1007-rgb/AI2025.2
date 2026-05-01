@@ -30,7 +30,7 @@ class MetroGraph:
     def __init__(self, transfer_penalty: float = 4.0):
         self.stations: Dict[str, Station] = {}
         self.adj_list: Dict[str, List[Edge]] = {}
-        self.transfer_penalty = transfer_penalty # time later when change line.
+        self.transfer_penalty = transfer_penalty # Thời gian phạt khi đổi tuyến
         self._kd_tree: Optional[KDTree] = None
         self._node_ids: List[str] = []
 
@@ -53,58 +53,93 @@ class MetroGraph:
     # --- Dijkstra update(add Transfer Penalty) ---
     def find_shortest_path(self, start_id: str, end_id: str) -> Dict:
         """
-        Trả về: {path: [id1, id2...], total_time: X, transfers: Y}
+        Trả về: {path, total_time_min, stations_count, transfers}
+        State = (station_id, line) để phân biệt cùng ga đi bằng line khác nhau.
         """
         if start_id not in self.stations or end_id not in self.stations:
             return {"error": "Ga không tồn tại"}
 
-        # distances save: (thời gian, ga_hòa_mạng, line_hiện_tại)
-        # Priority Queue save: (tổng_thời_gian, ga_hành_tại, line_trước_đó)
+        # pq: (total_time, station_id, current_line)
         pq = [(0.0, start_id, None)]
+        # distances[(station_id, line)] = best time to reach this state
         distances = {(start_id, None): 0.0}
-        previous_nodes = {}
+        # previous[(station_id, line)] = (prev_station_id, prev_line)
+        previous = {}
+        visited = set()
 
         while pq:
-            curr_time, u, prev_line = heapq.heappop(pq)
+            curr_time, u, curr_line = heapq.heappop(pq)
+
+            state = (u, curr_line)
+            if state in visited:
+                continue
+            visited.add(state)
 
             if u == end_id:
-                return self._reconstruct_path(previous_nodes, start_id, end_id, curr_time)
-
-            if curr_time > distances.get((u, prev_line), float('inf')):
-                continue
+                # Tìm state tại đích có thời gian nhỏ nhất
+                best_state = min(
+                    [s for s in visited if s[0] == end_id],
+                    key=lambda s: distances.get(s, float('inf'))
+                )
+                return self._reconstruct_path(previous, start_id, best_state, distances[best_state])
 
             for edge in self.adj_list.get(u, []):
-                weight = edge.travel_time
-                
-                # if change line, add penalty
-                if prev_line is not None and edge.line_name != prev_line:
-                    weight += self.transfer_penalty
-                
-                new_time = curr_time + weight
-                state = (edge.v, edge.line_name)
+                next_state = (edge.v, edge.line_name)
+                if next_state in visited:
+                    continue
 
-                if new_time < distances.get(state, float('inf')):
-                    distances[state] = new_time
-                    previous_nodes[state] = (u, prev_line)
+                weight = edge.travel_time
+                if curr_line is not None and edge.line_name != curr_line:
+                    weight += self.transfer_penalty
+
+                new_time = curr_time + weight
+
+                if new_time < distances.get(next_state, float('inf')):
+                    distances[next_state] = new_time
+                    previous[next_state] = state
                     heapq.heappush(pq, (new_time, edge.v, edge.line_name))
 
         return {"error": "Không tìm thấy đường đi"}
 
-    def _reconstruct_path(self, prev_map, start, end, total_time):
-        path = []
-        # find the final state to end
-        final_state = min([s for s in prev_map if s[0] == end], 
-                          key=lambda s: total_time, default=None)
-        
+    def _reconstruct_path(self, previous, start_id, final_state, total_time):
+        """
+        Trace ngược từ final_state về start bằng previous map.
+        Loại bỏ ga trùng liên tiếp (cùng ga, đổi line tại chỗ).
+        """
+        states = []
         curr = final_state
-        while curr:
-            path.append(curr[0])
-            curr = prev_map.get(curr)
-        
+        while curr is not None:
+            states.append(curr)
+            curr = previous.get(curr)
+        states.reverse()
+
+        # Lấy station_id + line đến ga đó, loại bỏ ga trùng liên tiếp
+        path = []        # [station_id]
+        path_lines = []  # line dùng để ĐI VÀO ga[i] (None ở ga đầu)
+        transfers = 0
+        prev_sid = None
+        prev_line = None
+
+        for i, (sid, line) in enumerate(states):
+            if sid == prev_sid:
+                # Cùng ga, khác line = đổi tuyến tại chỗ, cập nhật line vào ga này
+                path_lines[-1] = line
+                if prev_line and line and line != prev_line:
+                    transfers += 1
+            else:
+                path.append(sid)
+                path_lines.append(line)  # line dùng để đến ga này
+                if prev_line and line and line != prev_line:
+                    transfers += 1
+            prev_sid = sid
+            prev_line = line
+
         return {
-            "path": path[::-1],
+            "path": path,
+            "path_lines": path_lines,  # path_lines[i] = line đi vào ga path[i]
             "total_time_min": round(total_time, 2),
-            "stations_count": len(path)
+            "stations_count": len(path),
+            "transfers": transfers,
         }
 
     # utilites related to ID
