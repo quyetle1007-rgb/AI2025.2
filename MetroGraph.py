@@ -50,56 +50,67 @@ class MetroGraph:
         else:
             print(f"[!] Warning: Cạnh {u}->{v} bỏ qua vì thiếu dữ liệu ga.")
 
+    def get_neighbors(self, station_id: str) -> list:
+        """
+        Trả về danh sách các ga kế cận dưới dạng tuple (v_id, travel_time, line_name)
+        để tương thích cấu trúc vòng lặp vẽ bản đồ của UI.
+        """
+        neighbors = []
+        # Lấy danh sách các đối tượng Edge từ adj_list
+        for edge in self.adj_list.get(station_id, []):
+            neighbors.append((edge.v, edge.travel_time, edge.line_name))
+        return neighbors
+
     # --- Dijkstra update(add Transfer Penalty) ---
-    def find_shortest_path(self, start_id: str, end_id: str) -> Dict:
-        """
-        Trả về: {path, total_time_min, stations_count, transfers}
-        State = (station_id, line) để phân biệt cùng ga đi bằng line khác nhau.
-        """
-        if start_id not in self.stations or end_id not in self.stations:
-            return {"error": "Ga không tồn tại"}
-
-        # pq: (total_time, station_id, current_line)
-        pq = [(0.0, start_id, None)]
-        # distances[(station_id, line)] = best time to reach this state
-        distances = {(start_id, None): 0.0}
-        # previous[(station_id, line)] = (prev_station_id, prev_line)
-        previous = {}
-        visited = set()
-
-        while pq:
-            curr_time, u, curr_line = heapq.heappop(pq)
-
-            state = (u, curr_line)
-            if state in visited:
-                continue
-            visited.add(state)
-
-            if u == end_id:
-                # Tìm state tại đích có thời gian nhỏ nhất
-                best_state = min(
-                    [s for s in visited if s[0] == end_id],
-                    key=lambda s: distances.get(s, float('inf'))
-                )
-                return self._reconstruct_path(previous, start_id, best_state, distances[best_state])
-
-            for edge in self.adj_list.get(u, []):
-                next_state = (edge.v, edge.line_name)
-                if next_state in visited:
-                    continue
-
-                weight = edge.travel_time
-                if curr_line is not None and edge.line_name != curr_line:
-                    weight += self.transfer_penalty
-
-                new_time = curr_time + weight
-
-                if new_time < distances.get(next_state, float('inf')):
-                    distances[next_state] = new_time
-                    previous[next_state] = state
-                    heapq.heappush(pq, (new_time, edge.v, edge.line_name))
-
-        return {"error": "Không tìm thấy đường đi"}
+    # def find_shortest_path(self, start_id: str, end_id: str) -> Dict:
+    #     """
+    #     Trả về: {path, total_time_min, stations_count, transfers}
+    #     State = (station_id, line) để phân biệt cùng ga đi bằng line khác nhau.
+    #     """
+    #     if start_id not in self.stations or end_id not in self.stations:
+    #         return {"error": "Ga không tồn tại"}
+    #
+    #     # pq: (total_time, station_id, current_line)
+    #     pq = [(0.0, start_id, None)]
+    #     # distances[(station_id, line)] = best time to reach this state
+    #     distances = {(start_id, None): 0.0}
+    #     # previous[(station_id, line)] = (prev_station_id, prev_line)
+    #     previous = {}
+    #     visited = set()
+    #
+    #     while pq:
+    #         curr_time, u, curr_line = heapq.heappop(pq)
+    #
+    #         state = (u, curr_line)
+    #         if state in visited:
+    #             continue
+    #         visited.add(state)
+    #
+    #         if u == end_id:
+    #             # Tìm state tại đích có thời gian nhỏ nhất
+    #             best_state = min(
+    #                 [s for s in visited if s[0] == end_id],
+    #                 key=lambda s: distances.get(s, float('inf'))
+    #             )
+    #             return self._reconstruct_path(previous, start_id, best_state, distances[best_state])
+    #
+    #         for edge in self.adj_list.get(u, []):
+    #             next_state = (edge.v, edge.line_name)
+    #             if next_state in visited:
+    #                 continue
+    #
+    #             weight = edge.travel_time
+    #             if curr_line is not None and edge.line_name != curr_line:
+    #                 weight += self.transfer_penalty
+    #
+    #             new_time = curr_time + weight
+    #
+    #             if new_time < distances.get(next_state, float('inf')):
+    #                 distances[next_state] = new_time
+    #                 previous[next_state] = state
+    #                 heapq.heappush(pq, (new_time, edge.v, edge.line_name))
+    #
+    #     return {"error": "Không tìm thấy đường đi"}
 
     def _reconstruct_path(self, previous, start_id, final_state, total_time):
         """
