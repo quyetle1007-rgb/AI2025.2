@@ -3,22 +3,17 @@ from tkinter import messagebox, ttk
 import threading
 import time
 
-import tkintermapview
-
 import metro_ui  # Import file chính để lấy màu sắc cấu hình và thuật toán
 from algorithms.astar import find_path_astar
 from algorithms.bfs import find_path_bfs
 from algorithms.ucs import find_path_ucs
+from components.map_view import MetroMapVisualizer, load_line_info_from_json
 
 
 class UserScreen(tk.Frame):
     def __init__(self, parent, state):
         super().__init__(parent, bg=metro_ui.CLR_BG)
         self.state = state
-        self.all_station_markers = {}
-        self.network_line_objects = []  # Lưu giữ đối tượng các đoạn nối cố định ban đầu giữa các ga
-        self.path_objects = []          # Lưu giữ đối tượng đường định tuyến kết quả
-        self.special_markers = []
         state.register_scenario_change(self._refresh_warning)
         self._build_ui()
 
@@ -74,58 +69,37 @@ class UserScreen(tk.Frame):
         self.result_box.tag_config("title", foreground=metro_ui.CLR_ACCENT, font=("Consolas", 11, "bold"))
         self.result_box.tag_config("transfer", foreground=metro_ui.CLR_WARN)
 
-        self.map_widget = tkintermapview.TkinterMapView(self, corner_radius=0)
-        self.map_widget.grid(row=0, column=1, sticky="nsew")
-        #self.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=22)
+        # ── BẢN ĐỒ BÊN PHẢI: MetroMapVisualizer (Sơn) ──
+        right_frame = tk.Frame(self, bg=metro_ui.CLR_BG)
+        right_frame.grid(row=0, column=1, sticky="nsew")
 
-        self.map_widget.set_position(50.8503, 4.3517)
-        self.map_widget.set_zoom(13)
-
-        # Chức năng zoom chuột mặc định của map_widget được giữ nguyên
-        self.map_widget.canvas.bind("<Button-4>", self._on_map_zoom)
-        self.map_widget.canvas.bind("<Button-5>", self._on_map_zoom)
-        self.map_widget.canvas.bind("<MouseWheel>", self._on_map_zoom)
-
-        self._draw_initial_map_elements()
+        line_colors, line_station_order = load_line_info_from_json(metro_ui.DATA_FILE)
+        self.visualizer = MetroMapVisualizer(
+            right_frame, self.state.mg, line_colors, line_station_order
+        )
+        self.visualizer.draw_network()
         self._refresh_warning()
 
-    def _on_map_zoom(self, _=None):
-        pass
-
-    def _draw_initial_map_elements(self):
-        """Hàm chính phụ trách vẽ cấu trúc bản đồ ban đầu bao gồm các Ga và các Đường Nối"""
-        # 1. Xóa các Marker và Đường nối cũ trên Map nếu có
-        for m in self.all_station_markers.values(): m.delete()
-        for p in self.network_line_objects: p.delete()
-        self.all_station_markers.clear()
-        self.network_line_objects.clear()
-
-        selected = self.line_combo.get()
-        target_line = selected.split(" ")[-1] if "Tuyến" in selected else None
-
-        # 2. ĐÁNH DẤU CÁC ĐIỂM GA (Có tên ga đầy đủ rõ ràng ở đầu)
-        for sid, s in self.state.mg.stations.items():
-            if target_line and target_line not in s.lines:
-                continue
-            color = metro_ui.LINE_COLORS.get(s.lines[0], "#555555") if s.lines else "#555555"
-            m = self.map_widget.set_marker(
-                s.lat, s.lon,
-                text=s.name,
-                marker_color_circle=color,
-                marker_color_outside=metro_ui.CLR_PANEL,
-                text_color=metro_ui.CLR_TEXT
-            )
-            self.all_station_markers[sid] = m
-
     def _on_line_filter_change(self, _=None):
-        self._draw_initial_map_elements()
+        """Khi chọn lọc tuyến, vẽ lại mạng lưới theo tuyến đã chọn."""
+        selected = self.line_combo.get()
+        filter_line = selected.split(" ")[-1] if "Tuyến" in selected else None
+        self.visualizer.draw_network(filter_line=filter_line)
 
     def _refresh_warning(self):
-        active = [sc.name for sc in self.state.manager.list_scenarios() if sc.active]
-        if active:
-            self.warn_label.config(text=f"⚠️ SỰ CỐ HOẠT ĐỘNG: {', '.join(active)}")
+        active = [sc for sc in self.state.manager.list_scenarios() if sc.active]
+        active_names = [sc.name for sc in active]
+        if active_names:
+            self.warn_label.config(text=f"⚠️ SỰ CỐ HOẠT ĐỘNG: {', '.join(active_names)}")
             self.warn_frame.pack(fill="x", padx=25, pady=(15, 0))
-        else: self.warn_frame.pack_forget()
+        else:
+            self.warn_frame.pack_forget()
+
+        # Đánh dấu ga đóng trên bản đồ (Sơn — visualization)
+        closed_ids = []
+        for sc in active:
+            closed_ids.extend(sc.closed_stations)
+        self.visualizer.mark_closed_stations(closed_ids)
 
     def _find_route(self):
         sid_start, _ = self.entry_start.get_selected()
@@ -146,7 +120,7 @@ class UserScreen(tk.Frame):
 
     def _display_result(self, result, duration, algo):
         self.btn_find.config(state="normal", text="TÌM ĐƯỜNG NGAY")
-        self._clear_search_visuals()
+        self.visualizer.clear_highlight()
         if "error" in result:
             messagebox.showerror("Lỗi", result["error"]); return
 
@@ -168,40 +142,15 @@ class UserScreen(tk.Frame):
             self.result_box.insert(tk.END, f"{prefix} {name}\n")
             prev_line = curr_line
         self.result_box.config(state="disabled")
-        self._draw_path_on_map(result)
 
-    def _draw_path_on_map(self, result):
-        path = result["path"]
-        s_start, s_end = self.state.mg.stations[path[0]], self.state.mg.stations[path[-1]]
-
-        self.special_markers.append(self.map_widget.set_marker(s_start.lat, s_start.lon, text="START", marker_color_circle=metro_ui.CLR_SUCCESS))
-        self.special_markers.append(self.map_widget.set_marker(s_end.lat, s_end.lon, text="GOAL", marker_color_circle=metro_ui.CLR_ACCENT))
-
-        points = []
-        # Chuyển đổi toàn bộ đường kết quả tìm kiếm sang màu `metro_ui.CLR_ROUTING_PATH` nổi bật với độ dày width=9
-        for i in range(len(path)-1):
-            u, v = self.state.mg.stations[path[i]], self.state.mg.stations[path[i+1]]
-            self.path_objects.append(self.map_widget.set_path(
-                position_list=[(u.lat, u.lon), (v.lat, v.lon)],
-                color=metro_ui.CLR_ROUTING_PATH,
-                width=9
-            ))
-            points.append((u.lat, u.lon))
-        points.append((s_end.lat, s_end.lon))
-
-        self.map_widget.fit_bounding_box(
-            (max(p[0] for p in points), min(p[1] for p in points)),
-            (min(p[0] for p in points), max(p[1] for p in points))
-        )
-
-    def _clear_search_visuals(self):
-        for p in self.path_objects: p.delete()
-        for m in self.special_markers: m.delete()
-        self.path_objects.clear(); self.special_markers.clear()
+        # Highlight lộ trình trên bản đồ (Sơn — visualization)
+        self.visualizer.highlight_route(result["path"], result.get("path_lines", []))
 
     def _clear_all(self):
-        self.entry_start.clear(); self.entry_end.clear(); self._clear_search_visuals()
-        self.line_combo.current(0); self._draw_initial_map_elements()
+        self.entry_start.clear(); self.entry_end.clear()
+        self.visualizer.clear_highlight()
+        self.line_combo.current(0)
+        self.visualizer.draw_network()
         self.stats_label.config(text="")
 
         self.result_box.config(state="normal")
