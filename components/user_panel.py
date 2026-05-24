@@ -114,7 +114,7 @@ class UserScreen(tk.Frame):
             t_start = time.perf_counter()
             if algo == "A*": result = find_path_astar(mg_use, sid_start, sid_end)
             elif algo == "BFS": result = find_path_bfs(mg_use, sid_start, sid_end)
-            elif algo == "DFS": result = find_path_dfs(ms_use, sid_start, sid_end)
+            elif algo == "DFS": result = find_path_dfs(mg_use, sid_start, sid_end)
             else: result = find_path_ucs(mg_use, sid_start, sid_end)
             duration_ms = (time.perf_counter() - t_start) * 1000
             self.after(0, lambda: self._display_result(result, duration_ms, algo))
