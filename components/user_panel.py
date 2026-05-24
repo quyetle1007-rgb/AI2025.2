@@ -7,6 +7,7 @@ import metro_ui  # Import file chính để lấy màu sắc cấu hình và thu
 from algorithms.astar import find_path_astar
 from algorithms.bfs import find_path_bfs
 from algorithms.ucs import find_path_ucs
+from algorithms.dfs import find_path_dfs
 from components.map_view import MetroMapVisualizer, load_line_info_from_json
 
 
@@ -51,7 +52,7 @@ class UserScreen(tk.Frame):
         self.entry_end.pack(fill="x", padx=25, pady=(5, 15))
 
         tk.Label(left, text="THUẬT TOÁN TÌM KIẾM", bg=metro_ui.CLR_PANEL, fg=metro_ui.CLR_SUBTEXT, font=("Arial", 8, "bold")).pack(padx=25, anchor="w")
-        self.algo_combo = ttk.Combobox(left, values=["A*", "BFS", "UCS"], state="readonly", font=("Arial", 10))
+        self.algo_combo = ttk.Combobox(left, values=["A*", "BFS", "UCS","DFS"], state="readonly", font=("Arial", 10))
         self.algo_combo.current(0)
         self.algo_combo.pack(fill="x", padx=25, pady=(5, 20))
 
@@ -113,6 +114,7 @@ class UserScreen(tk.Frame):
             t_start = time.perf_counter()
             if algo == "A*": result = find_path_astar(mg_use, sid_start, sid_end)
             elif algo == "BFS": result = find_path_bfs(mg_use, sid_start, sid_end)
+            elif algo == "DFS": result = find_path_dfs(ms_use, sid_start, sid_end)
             else: result = find_path_ucs(mg_use, sid_start, sid_end)
             duration_ms = (time.perf_counter() - t_start) * 1000
             self.after(0, lambda: self._display_result(result, duration_ms, algo))
