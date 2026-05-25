@@ -6,8 +6,6 @@ from tkinter import messagebox, simpledialog, ttk
 from Admin import ScenarioManager
 from MetroGraph import MetroGraph
 
-# Import các thuật toán từ package algorithms
-
 # ─────────────────────────────────────────────
 #  CẤU HÌNH THEME & MÀU SẮC (LIGHT THEME NEW)
 # ─────────────────────────────────────────────
@@ -34,7 +32,6 @@ LINE_COLORS = {
 
 # MÀU ĐƯỜNG ĐỊNH TUYẾN KẾT QUẢ (Thay đổi sang màu Đỏ Neon cực kỳ nổi bật)
 CLR_ROUTING_PATH = "#ff2d55"
-
 
 def center_window(window, width: int, height: int):
     """Căn một cửa sổ (Tk hoặc Toplevel) ra chính giữa màn hình máy tính"""

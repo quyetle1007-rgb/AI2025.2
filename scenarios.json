@@ -4,9 +4,15 @@
     "description": "delay tại ga parc và arts_loi",
     "active": true,
     "closed_stations": [],
-    "closed_edges": [],
+    "closed_edges": [
+      [
+        "arts_loi",
+        "trone",
+        "*"
+      ]
+    ],
     "delays": {
-      "[\"arts_loi\", \"parc\", \"*\"]": 5.0
+      "[\"arts_loi\", \"trone\", \"*\"]": 5.0
     }
   }
 }
