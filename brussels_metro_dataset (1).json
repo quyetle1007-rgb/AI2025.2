@@ -130,7 +130,16 @@
         "Elisabeth"
       ],
       "total_runtime_min": 34
-    }
+    },
+     "Transfer": {
+      "name": "Transfer Connection",
+      "color_hex": "#808080", 
+      "stations": [
+        "Simonis",
+        "Elisabeth"
+      ],
+      "total_runtime_min": 4
+     }
   },
   "stations": [
     {
@@ -334,8 +343,8 @@
     {
       "id": "elisabeth",
       "name": "Elisabeth",
-      "lat": 50.86306,
-      "lon": 4.33056,
+      "lat": 50.86270,
+      "lon": 4.33100,
       "lines": [
         "2",
         "6"
@@ -690,8 +699,8 @@
     {
       "id": "simonis",
       "name": "Simonis",
-      "lat": 50.86306,
-      "lon": 4.33056,
+      "lat": 50.86340,
+      "lon": 4.33010,
       "lines": [
         "2",
         "6"
@@ -2108,6 +2117,18 @@
       "to": "Ribaucourt",
       "line": "6",
       "travel_time_min": 1
+    },
+    {
+      "from": "Elisabeth",
+      "to": "Simonis",
+      "line": "Transfer",
+      "travel_time_min": 4
+    },
+    {
+      "from": "Simonis",
+      "to": "Elisabeth",
+      "line": "Transfer",
+      "travel_time_min": 4
     }
   ]
 }
