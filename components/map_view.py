@@ -10,6 +10,8 @@ Public API:
     visualizer.highlight_route(path, path_lines)
     visualizer.clear_highlight()
     visualizer.mark_closed_stations(closed_ids)
+    visualizer.mark_delayed_segments(delays)
+    visualizer.mark_closed_edges(closed_edges)
     visualizer.reset_view()
 """
 
@@ -49,7 +51,8 @@ LINE_DISPLAY_NAMES: Dict[str, str] = {
 # Cấu hình hiển thị
 LINE_WIDTH = 4                      # Độ dày vẽ tuyến bình thường
 HIGHLIGHT_WIDTH = 7                 # Độ dày highlight lộ trình
-HIGHLIGHT_BORDER_COLOR = "#FFFFFF"  # Viền trắng cho highlight
+HIGHLIGHT_COLOR = "#00FFD0"        # Xanh neon nổi bật cho highlight
+HIGHLIGHT_BORDER_COLOR = "#004D40"  # Viền tối cho highlight
 
 # Kích thước icon ga (pixel)
 STATION_DOT_RADIUS = 6             # Bán kính chấm tròn ga thường
@@ -59,6 +62,9 @@ INTERCHANGE_BORDER = 3             # Viền đen cho interchange
 START_MARKER_COLOR = "#2ecc71"     # Xanh lá cho ga xuất phát
 END_MARKER_COLOR = "#e74c3c"       # Đỏ cho ga đích
 CLOSED_MARKER_COLOR = "#888888"    # Xám cho ga đóng
+DELAY_MARKER_COLOR = "#FF9800"     # Cam cho ga bị delay
+CLOSED_EDGE_COLOR = "#D32F2F"      # Đỏ đậm cho chặng đứt gãy
+CLOSED_EDGE_WIDTH = 6              # Độ dày đường chặng đứt
 
 
 # ── Tạo icon tròn nhỏ ────────────────────────────────────────────────────────
@@ -126,6 +132,8 @@ class MetroMapVisualizer:
         self._highlight_paths: List = []
         self._highlight_markers: List = []
         self._closed_markers: List = []
+        self._delay_markers: List = []
+        self._closed_edge_markers: List = []
 
         # Giữ reference đến PhotoImage để GC không xóa
         self._icon_refs: List = []
@@ -185,18 +193,16 @@ class MetroMapVisualizer:
                     coords.append((s.lat, s.lon))
 
             if len(coords) >= 2:
-                seg_color = self.line_colors.get(line_id, "#FFFFFF")
-
-                # Viền trắng (border)
+                # Viền tối (border)
                 border = self.map_widget.set_path(
                     coords, color=HIGHLIGHT_BORDER_COLOR,
                     width=HIGHLIGHT_WIDTH + 4,
                 )
                 self._highlight_paths.append(border)
 
-                # Đường highlight màu tuyến
+                # Đường highlight màu neon nổi bật
                 hl = self.map_widget.set_path(
-                    coords, color=seg_color, width=HIGHLIGHT_WIDTH,
+                    coords, color=HIGHLIGHT_COLOR, width=HIGHLIGHT_WIDTH,
                 )
                 self._highlight_paths.append(hl)
 
@@ -271,12 +277,103 @@ class MetroMapVisualizer:
                 )
                 self._closed_markers.append(m)
 
+    def mark_delayed_segments(
+        self,
+        delays: Dict[Tuple[str, str, str], float],
+        closed_ids: List[str] = None,
+    ) -> None:
+        """
+        Đánh dấu các ga thuộc chặng bị delay bằng marker ⏱ cam.
+        Skip ga đã bị đóng (ưu tiên closed > delay).
+
+        Parameters
+        ----------
+        delays : dict[(u, v, line), extra_minutes]
+            Từ scenario.delays.
+        closed_ids : list[str] | None
+            Danh sách ga đã bị đóng — sẽ bỏ qua không hiển delay.
+        """
+        for m in self._delay_markers:
+            m.delete()
+        self._delay_markers.clear()
+
+        closed_set = set(closed_ids or [])
+
+        # Thu thập tất cả ga bị ảnh hưởng bởi delay (không trùng lặp)
+        delayed_stations: Dict[str, float] = {}  # sid -> max delay
+        for (u, v, line), extra in delays.items():
+            if u in self.mg.stations and u not in closed_set:
+                delayed_stations[u] = max(delayed_stations.get(u, 0), extra)
+            if v in self.mg.stations and v not in closed_set:
+                delayed_stations[v] = max(delayed_stations.get(v, 0), extra)
+
+        for sid, extra in delayed_stations.items():
+            s = self.mg.stations[sid]
+            m = self.map_widget.set_marker(
+                s.lat, s.lon,
+                text=f"⏱ {s.name} (+{extra:.0f}m)",
+                marker_color_circle=DELAY_MARKER_COLOR,
+                marker_color_outside="#E65100",
+                text_color="#E65100",
+            )
+            self._delay_markers.append(m)
+
+    def mark_closed_edges(self, closed_edges: List[Tuple[str, str, str]]) -> None:
+        """
+        Hiển thị chặng đứt gãy bằng đường đỏ đậm trên bản đồ (vẽ lên cạnh).
+
+        Parameters
+        ----------
+        closed_edges : list[(u, v, line)]
+            Từ scenario.closed_edges.
+        """
+        for obj in self._closed_edge_markers:
+            obj.delete()
+        self._closed_edge_markers.clear()
+
+        for (u, v, line) in closed_edges:
+            if u in self.mg.stations and v in self.mg.stations:
+                su = self.mg.stations[u]
+                sv = self.mg.stations[v]
+                coords = [(su.lat, su.lon), (sv.lat, sv.lon)]
+
+                # Đường đỏ đậm liền trên cạnh bị đứt
+                path_obj = self.map_widget.set_path(
+                    coords, color=CLOSED_EDGE_COLOR, width=CLOSED_EDGE_WIDTH,
+                )
+                self._closed_edge_markers.append(path_obj)
+
+                # Icon dấu X nhỏ ở giữa chặng (không dùng marker GPS)
+                mid_lat = (su.lat + sv.lat) / 2
+                mid_lon = (su.lon + sv.lon) / 2
+                x_icon = self._create_x_icon()
+                self._icon_refs.append(x_icon)
+                xmark = self.map_widget.set_marker(
+                    mid_lat, mid_lon,
+                    text="",
+                    icon=x_icon,
+                )
+                self._closed_edge_markers.append(xmark)
+
     def reset_view(self) -> None:
         """Reset view về trung tâm Brussels, zoom mặc định."""
         self.map_widget.set_position(BRUSSELS_CENTER_LAT, BRUSSELS_CENTER_LON)
         self.map_widget.set_zoom(DEFAULT_ZOOM)
 
-    # ── PRIVATE HELPERS ───────────────────────────────────────────────────
+    # PRIVATE HELPERS
+
+    def _create_x_icon(self, size: int = 24) -> tk.PhotoImage:
+        """Tạo icon hình dấu X đỏ trên nền trong suốt."""
+        from PIL import ImageTk
+        img = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(img)
+        pad = 4
+        w = 3
+        # Gạch chéo 1: trên-trái → dưới-phải
+        draw.line([(pad, pad), (size - pad, size - pad)], fill="#D32F2F", width=w)
+        # Gạch chéo 2: trên-phải → dưới-trái
+        draw.line([(size - pad, pad), (pad, size - pad)], fill="#D32F2F", width=w)
+        return ImageTk.PhotoImage(img)
 
     def _clear_network(self) -> None:
         """Xóa toàn bộ đối tượng mạng lưới (line paths + station markers) để vẽ lại."""

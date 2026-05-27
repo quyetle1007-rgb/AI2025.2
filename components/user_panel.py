@@ -102,9 +102,15 @@ class UserScreen(tk.Frame):
 
         # Đánh dấu ga đóng trên bản đồ (Sơn — visualization)
         closed_ids = []
+        all_delays = {}
+        all_closed_edges = []
         for sc in active:
             closed_ids.extend(sc.closed_stations)
+            all_delays.update(sc.delays)
+            all_closed_edges.extend(sc.closed_edges)
         self.visualizer.mark_closed_stations(closed_ids)
+        self.visualizer.mark_delayed_segments(all_delays, closed_ids)
+        self.visualizer.mark_closed_edges(all_closed_edges)
 
     def _find_route(self):
         sid_start, _ = self.entry_start.get_selected()

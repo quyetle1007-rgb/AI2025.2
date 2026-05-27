@@ -3,7 +3,9 @@
     "name": "Delay parc arts_loi",
     "description": "delay tại ga parc và arts_loi",
     "active": true,
-    "closed_stations": [],
+    "closed_stations": [
+      "sainte_catherine"
+    ],
     "closed_edges": [
       [
         "arts_loi",
