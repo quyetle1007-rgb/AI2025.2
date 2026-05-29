@@ -268,10 +268,11 @@ class AdminScreen(tk.Frame):
     def _add_closed_edge(self):
         if not self._selected_scenario_name: return
         sc = self.state.manager.get_scenario(self._selected_scenario_name)
+        mg = self.state.mg
 
         dialog = tk.Toplevel(self)
         dialog.title("Đóng Chặng Đường")
-        metro_ui.center_window(dialog, 450, 380)
+        metro_ui.center_window(dialog, 450, 420)
         dialog.configure(bg=metro_ui.CLR_PANEL)
         dialog.transient(self)
         dialog.grab_set()
@@ -291,29 +292,100 @@ class AdminScreen(tk.Frame):
         entry_v = metro_ui.AutocompleteEntry(dialog, suggestions, placeholder="Tìm ga kết thúc...")
         entry_v.pack(fill="x", padx=35, pady=(2, 10))
 
-        tk.Label(dialog, text="Tuyến đường (Nhập tên tuyến hoặc * cho tất cả):", bg=metro_ui.CLR_PANEL, fg=metro_ui.CLR_SUBTEXT,
+        tk.Label(dialog, text="Tuyến đường:", bg=metro_ui.CLR_PANEL, fg=metro_ui.CLR_SUBTEXT,
                  font=("Arial", 9, "bold")).pack(anchor="w", padx=35)
-        line_var = tk.StringVar(value="*")
-        entry_line = tk.Entry(dialog, textvariable=line_var, bg=metro_ui.CLR_ACCENT2, fg=metro_ui.CLR_TEXT, relief="flat",
-                              font=("Segoe UI", 11))
-        entry_line.pack(fill="x", padx=35, pady=(2, 15), ipady=5)
+
+        line_frame = tk.Frame(dialog, bg=metro_ui.CLR_PANEL)
+        line_frame.pack(fill="x", padx=35, pady=(2, 5))
+
+        from tkinter import ttk
+        line_combo = ttk.Combobox(line_frame, state="readonly", font=("Arial", 10), values=["← Chọn 2 ga rồi nhấn Tải tuyến"])
+        line_combo.pack(side="left", fill="x", expand=True, ipady=3)
+        line_combo.current(0)
+
+        # Label trạng thái kiểm tra
+        status_label = tk.Label(dialog, text="", bg=metro_ui.CLR_PANEL, font=("Arial", 9, "italic"))
+        status_label.pack(anchor="w", padx=35)
+
+        def load_lines():
+            """Kiểm tra 2 ga liền kề và tải tuyến hợp lệ vào Combobox."""
+            u_id, _ = entry_u.get_selected()
+            v_id, _ = entry_v.get_selected()
+            if not u_id and entry_u.var.get().strip() in mg.stations:
+                u_id = entry_u.var.get().strip()
+            if not v_id and entry_v.var.get().strip() in mg.stations:
+                v_id = entry_v.var.get().strip()
+
+            if not u_id or u_id not in mg.stations:
+                status_label.config(text="⚠ Chưa chọn ga bắt đầu hợp lệ.", fg="#cc0000")
+                return
+            if not v_id or v_id not in mg.stations:
+                status_label.config(text="⚠ Chưa chọn ga kết thúc hợp lệ.", fg="#cc0000")
+                return
+
+            # Tìm tất cả tuyến nối trực tiếp u → v
+            valid_lines = sorted({e.line_name for e in mg.adj_list.get(u_id, []) if e.v == v_id})
+
+            if not valid_lines:
+                u_name = mg.stations[u_id].name
+                v_name = mg.stations[v_id].name
+                status_label.config(text=f"✕ {u_name} và {v_name} không liền kề!", fg="#cc0000")
+                line_combo.config(values=["Không có tuyến hợp lệ"])
+                line_combo.current(0)
+                return
+
+            # Tải tuyến hợp lệ + option tất cả
+            options = [f"* (Tất cả tuyến)"] + [f"Tuyến {l}" for l in valid_lines]
+            line_combo.config(values=options)
+            line_combo.current(0)
+            status_label.config(text=f"✔ Tìm thấy {len(valid_lines)} tuyến hợp lệ.", fg=metro_ui.CLR_SUCCESS)
+
+        tk.Button(line_frame, text="Tải tuyến ↻", bg=metro_ui.CLR_ACCENT, fg="white", relief="flat",
+                  font=("Arial", 9, "bold"), command=load_lines, cursor="hand2").pack(side="left", padx=(5, 0), ipady=3)
 
         def confirm():
             u_id, _ = entry_u.get_selected()
             v_id, _ = entry_v.get_selected()
-            line = line_var.get().strip()
+            if not u_id and entry_u.var.get().strip() in mg.stations:
+                u_id = entry_u.var.get().strip()
+            if not v_id and entry_v.var.get().strip() in mg.stations:
+                v_id = entry_v.var.get().strip()
 
-            if not u_id and entry_u.var.get().strip() in self.state.mg.stations: u_id = entry_u.var.get().strip()
-            if not v_id and entry_v.var.get().strip() in self.state.mg.stations: v_id = entry_v.var.get().strip()
+            if not u_id or u_id not in mg.stations or not v_id or v_id not in mg.stations:
+                messagebox.showerror("Lỗi", "Vui lòng chọn 2 ga hợp lệ từ gợi ý!", parent=dialog)
+                return
 
-            if u_id in self.state.mg.stations and v_id in self.state.mg.stations and line:
-                sc.closed_edges.append((u_id, v_id, line))
-                self.state.manager.save()
-                self._load_scenario_details()
-                self.state.notify_scenario_change()
-                dialog.destroy()
+            # Kiểm tra liền kề
+            valid_lines = {e.line_name for e in mg.adj_list.get(u_id, []) if e.v == v_id}
+            if not valid_lines:
+                u_name = mg.stations[u_id].name
+                v_name = mg.stations[v_id].name
+                messagebox.showerror("Lỗi",
+                    f"Ga '{u_name}' và '{v_name}' không nối trực tiếp!\n"
+                    f"Chỉ được chọn 2 ga liền kề nhau trên cùng 1 chặng.",
+                    parent=dialog)
+                return
+
+            # Parse tuyến từ Combobox
+            selected = line_combo.get()
+            if selected.startswith("*"):
+                line = "*"
+            elif selected.startswith("Tuyến "):
+                line = selected.replace("Tuyến ", "")
             else:
-                messagebox.showerror("Lỗi", "Thông tin ga không khớp hệ thống. Vui lòng sử dụng gợi ý!", parent=dialog)
+                messagebox.showerror("Lỗi", "Vui lòng nhấn 'Tải tuyến ↻' để chọn tuyến hợp lệ.", parent=dialog)
+                return
+
+            # Kiểm tra tuyến cụ thể
+            if line != "*" and line not in valid_lines:
+                messagebox.showerror("Lỗi", f"Tuyến {line} không tồn tại giữa 2 ga đã chọn!", parent=dialog)
+                return
+
+            sc.closed_edges.append((u_id, v_id, line))
+            self.state.manager.save()
+            self._load_scenario_details()
+            self.state.notify_scenario_change()
+            dialog.destroy()
 
         btn_frame = tk.Frame(dialog, bg=metro_ui.CLR_PANEL)
         btn_frame.pack(fill="x", side="bottom", pady=15, padx=35)
