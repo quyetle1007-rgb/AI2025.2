@@ -1,26 +1,26 @@
 This project is a web-based smart pathfinding application built with Flask (Python backend) . It visualizes various graph search algorithms (like A*, Dijkstra, BFS, etc.) and allows interactive simulation on a custom graph or map.
 
-🚀 Features
-Visualizes pathfinding using algorithms:
-A*
-Dijkstra
-BFS
-DFS
-Greedy Best-First Search
-Uniform Cost Search
-Admin controls for creating blocked roads, simulating traffic, etc.
+🚀 Features  
+Visualizes pathfinding using algorithms:  
+A*  
+Dijkstra  
+BFS  
+DFS  
+Greedy Best-First Search  
+Uniform Cost Search  
+Admin controls for creating blocked roads, simulating traffic, etc.  
 
 Extendable and modular code structure
 
-⚙️ How to Run
+⚙️ How to Run  
 Open the main.py file, click Run, and wait a moment. The application window will then appear.
 
 
-Project Members:
-Lê Hồng Quyết
-Đoàn Trung Nghĩa
-Phùng Đắc Cường
-Me Mengleang 
-Nguyễn Ngọc Sơn
-Vũ Văn Sáng
+Project Members:  
+Lê Hồng Quyết  
+Đoàn Trung Nghĩa  
+Phùng Đắc Cường  
+Me Mengleang   
+Nguyễn Ngọc Sơn  
+Vũ Văn Sáng  
 If you'd like to report bugs, suggest features, or contribute, please open an issue on the AI2025.2
